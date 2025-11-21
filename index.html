@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jednoduchá stránka</title>
+  <meta name="description" content="Ukázková jednoduchá statická HTML stránka" />
+  <style>
+    :root{ --bg:#f7f8fb; --card:#ffffff; --accent:#2563eb; --muted:#6b7280; --radius:12px }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#0f172a; line-height:1.5}
+    .container{max-width:980px; margin:32px auto; padding:24px}
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:48px; height:48px; border-radius:10px; background:linear-gradient(135deg,#60a5fa,#7c3aed); display:flex; align-items:center; justify-content:center; color:white; font-weight:700}
+    nav a{margin-left:12px; text-decoration:none; color:var(--muted)}
+    .hero{margin-top:28px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9)); padding:28px; border-radius:var(--radius); box-shadow:0 6px 20px rgba(2,6,23,0.06); display:flex; flex-direction:column; gap:14px}
+    .hero h1{margin:0; font-size:1.6rem}
+    .buttons{display:flex; gap:10px}
+    .btn{padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:600}
+    .btn.primary{background:var(--accent); color:white}
+    .btn.ghost{background:transparent; color:var(--accent); border:1px solid rgba(37,99,235,0.12)}
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px}
+    .card{background:var(--card); padding:16px; border-radius:10px; box-shadow:0 4px 14px rgba(2,6,23,0.04)}
+    footer{margin-top:28px; text-align:center; color:var(--muted)}
+    .small{font-size:0.9rem; color:var(--muted)}
+    form{display:flex; flex-direction:column; gap:10px}
+    input, textarea{padding:10px; border-radius:8px; border:1px solid #e6e9ef}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){header{flex-direction:column; align-items:flex-start} .grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">JS</div>
+        <div>
+          <strong>Moje stránka</strong><br>
+          <span class="small">Jednoduchý HTML šablona</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#features">Funkce</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <h1>Ahoj — vítej na jednoduché HTML stránce</h1>
+        <p class="small">Tato stránka je připravená jako startovací šablona. Můžeš ji upravit podle sebe — změnit texty, barvy nebo přidat vlastní JavaScript.</p>
+        <div class="buttons">
+          <button class="btn primary" onclick="alert('Děkuji za klik!')">Vyzkoušet</button>
+          <a href="#contact"><button class="btn ghost">Napiš mi</button></a>
+        </div>
+
+        <div class="grid" id="features">
+          <div class="card">
+            <h3>Rychlé nastavení</h3>
+            <p class="small">Stačí zkopírovat tento soubor jako <code>index.html</code> a otevřít v prohlížeči.</p>
+          </div>
+
+          <div class="card">
+            <h3>Responzivní</h3>
+            <p class="small">Šablona se automaticky přizpůsobí mobilům i desktopům.</p>
+          </div>
+
+          <div class="card">
+            <h3>Bez backendu</h3>
+            <p class="small">Formulář je ukázkový — pro skutečné odeslání přidej server nebo službu jako Formspree.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-top:20px" id="contact">
+        <div class="card">
+          <h3>Kontakt</h3>
+          <form onsubmit="event.preventDefault(); handleSubmit()">
+            <input type="text" id="name" placeholder="Tvoje jméno" required />
+            <input type="email" id="email" placeholder="Email" required />
+            <textarea id="message" rows="4" placeholder="Zpráva"></textarea>
+            <div style="display:flex; gap:10px; margin-top:8px">
+              <button class="btn primary" type="submit">Odeslat</button>
+              <button class="btn ghost" type="button" onclick="document.getElementById('name').value=''; document.getElementById('email').value=''; document.getElementById('message').value=''">Vymazat</button>
+            </div>
+            <p id="status" class="small" style="margin-top:8px"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p class="small">© {rok} — Vytvořeno s ❤️. Upraveno: jednoduchá šablona.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Jednoduchý JS pro formulář a dynamické roku v patičce
+    function handleSubmit(){
+      const name = document.getElementById('name').value;
+      const status = document.getElementById('status');
+      status.textContent = `Děkuji, ${name}! Zpráva byla přijata (lokálně).`;
+      // zde bys mohl poslat data na server přes fetch
+    }
+    document.querySelector('footer p').innerHTML = document.querySelector('footer p').innerHTML.replace('{rok}', new Date().getFullYear());
+  </script>
+</body>
+</html>
